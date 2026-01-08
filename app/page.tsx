@@ -18,6 +18,9 @@ export default function Home() {
           <Link href="/login" className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-green-100 transition">
             Bắt đầu ngay
           </Link>
+             <Link href="/dashboard" className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-green-100 transition">
+            Dashboard
+          </Link>
         </div>
       </header>
 
