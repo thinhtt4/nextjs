@@ -3,16 +3,37 @@ import { useState } from 'react';
 // import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'; // XÓA DÒNG NÀY
 import { createClient } from '@/utils/supabase/client'; // THÊM DÒNG NÀY
 import { useRouter } from 'next/navigation';
-import { Camera, Upload, Loader2 } from 'lucide-react';
+import { Camera, Upload, Loader2, MapPin } from 'lucide-react';
 
 export default function DepositPage() {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [type, setType] = useState('Nhựa');
   const [weight, setWeight] = useState('');
+  const [location, setLocation] = useState<{lat: number, lng: number} | null>(null);
+const [gettingLocation, setGettingLocation] = useState(false);
   
   const supabase = createClient(); // ĐỔI THÀNH HÀM NÀY
   const router = useRouter();
+
+  const getMyLocation = () => {
+  setGettingLocation(true);
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+        setGettingLocation(false);
+      },
+      (error) => {
+        alert("Không thể lấy vị trí. Vui lòng cấp quyền truy cập GPS.");
+        setGettingLocation(false);
+      }
+    );
+  }
+};
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +68,8 @@ export default function DepositPage() {
         weight: parseFloat(weight),
         status: 'pending',
         image_url: imageUrl, 
+        latitude: location?.lat,  // Thêm dòng này
+        longitude: location?.lng,
       });
 
       if (dbError) throw dbError;
@@ -116,6 +139,14 @@ export default function DepositPage() {
             className="w-full p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 outline-none"
           />
         </div>
+        <button 
+          type="button"
+          onClick={getMyLocation}
+          className={`w-full mb-4 p-3 rounded-xl border flex items-center justify-center gap-2 ${location ? 'bg-blue-50 border-blue-200 text-blue-600' : 'bg-gray-50 border-gray-200'}`}
+        >
+          <MapPin size={18} />
+          {gettingLocation ? 'Đang xác vị trí...' : location ? 'Đã lấy vị trí thành công' : 'Chia sẻ vị trí để thu gom nhanh hơn'}
+        </button>
 
         <button 
           type="submit" 
