@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { User, LogOut, UserCircle } from 'lucide-react'; // Thêm icon cho đẹp
-
+import { User as UserIcon, LogOut, UserCircle } from 'lucide-react'; // Thêm icon cho đẹp
+import { type User } from '@supabase/supabase-js';
 export default function Header() {
   const [user, setUser] = useState<User | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
