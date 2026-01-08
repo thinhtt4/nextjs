@@ -21,6 +21,15 @@ export default function Home() {
              <Link href="/dashboard" className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-green-100 transition">
             Dashboard
           </Link>
+               <Link href="/collector" className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-green-100 transition">
+            Thu gom
+          </Link>
+               <Link href="/deposit" className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-green-100 transition">
+            Đăng bài
+          </Link>
+              <Link href="/redeem" className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-green-100 transition">
+            Đổi quà
+          </Link>
         </div>
       </header>
 
