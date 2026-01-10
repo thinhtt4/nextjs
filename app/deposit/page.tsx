@@ -46,7 +46,7 @@ export default function DepositPage() {
 
       const responseText = result.response.text();
       // Tìm và bóc tách JSON từ phản hồi của AI
-      const jsonMatch = responseText.match(/\{.*\}/s);
+      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         const data = JSON.parse(jsonMatch[0]);
         setType(data.type);
